@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <title>WeUI</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="./style/weui.min.css"/>
+    <link rel="stylesheet" href="./font/iconfont.css"/>
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+
+    <div class="page">
+            <div class="weui-form__control-area">
+                <div class="weui-cells__group weui-cells__group_form">
+                    <div id="add-mer-form" class="weui-cells weui-cells_form">
+                        <div class="button-sp-area" style="margin-bottom: 10px;text-align: center;">
+                            <!--<a href="javascript:" class="weui-btn weui-btn_mini weui-btn_primary">按钮</a>-->
+                            <a id="upload-identity" href="javascript:" class="weui-btn weui-btn_mini weui-btn_default upload-pic">省份证正面</a>
+                            <input type="hidden">
+                            <a href="javascript:" class="weui-btn weui-btn_mini weui-btn_default upload-pic">省份证背面</a>
+                            <input type="hidden">
+                            <a href="javascript:" class="weui-btn weui-btn_mini weui-btn_default upload-pic">手持身份证</a>
+                            <input type="hidden">
+                            <!--<a href="javascript:" class="weui-btn weui-btn_mini weui-btn_warn">按钮</a>-->
+                        </div>
+                        <div class="weui-cell weui-cell_active">
+                            <div class="weui-cell__hd"><label class="weui-label">身份证</label></div>
+                            <div class="weui-cell__bd weui-flex">
+                                <input class="weui-input js_input check-picture" pic-id="upload-identity" type="text" pattern="\d{15}(\d\d[0-9xX])?" placeholder="请输入身份证号" />
+                                <button class="weui-btn_reset weui-btn_icon weui-btn_input-clear">
+                                    <i class="weui-icon-clear"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="weui-cell weui-cell_active">
+                            <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+                            <div class="weui-cell__bd weui-flex">
+                                <input class="weui-input js_input" type="text" pattern="[\u4e00-\u9fa5]" placeholder="请输入姓名" />
+                                <button class="weui-btn_reset weui-btn_icon weui-btn_input-clear">
+                                    <i class="weui-icon-clear"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="weui-cell weui-cell_active">
+                            <div class="weui-cell__hd"><label class="weui-label">银行卡</label></div>
+                            <div class="weui-cell__bd weui-flex">
+                                <input class="weui-input js_input" type="text" pattern="([1-9]{1})(\d{15}|\d{18})" placeholder="可点击右侧识别" />
+                                <button class="weui-btn_reset weui-btn_icon weui-btn_input-clear">
+                                    <i class="weui-icon-clear"></i>
+                                </button>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <a class="weui-btn_reset weui-btn_icon">
+                                    <i id="discern-card" class="iconfont icon-30">&#xe6ba;</i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="weui-cell weui-cell_active">
+                            <div class="weui-cell__hd"><label class="weui-label">机具sn</label></div>
+                            <div class="weui-cell__bd weui-flex">
+                                <input class="weui-input js_input" type="text" pattern="([1-9]{1})(\d{15}|\d{18})" placeholder="可点击右侧识别" />
+                                <button class="weui-btn_reset weui-btn_icon weui-btn_input-clear">
+                                    <i class="weui-icon-clear"></i>
+                                </button>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <a class="weui-btn_reset weui-btn_icon">
+                                    <i id="discern-sn" class="iconfont icon-30">&#xe899;</i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="weui-cell weui-cell_active">
+                            <div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input js_input" type="number" pattern="(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}" placeholder="请输入手机号" maxlength="11"/>
+                            </div>
+                            <!--<div class="weui-cell__ft">
+                                <a class="weui-btn_reset weui-btn_icon">
+                                    <i id="showIOSDialog1" class="weui-icon-info-circle"></i>
+                                </a>
+                            </div>-->
+                        </div>
+                        <div class="weui-cell weui-cell_active weui-cell_vcode">
+                            <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input js_input" type="text" pattern="[A-Za-z0-9]{6}" placeholder="输入验证码" maxlength="6"/>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <button id="send-vcode" class="weui-btn weui-btn_default weui-vcode-btn" status="0">获取验证码</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui-cells__tips"><a class="weui-link" href="javascript:">收不到验证码</a></div>
+                </div>
+            </div>
+            <div class="weui-form__tips-area">
+                <label id="weuiAgree" for="weuiAgreeCheckbox" class="weui-agree">
+                    <input id="weuiAgreeCheckbox" type="checkbox" class="weui-agree__checkbox"/><span class="weui-agree__text">阅读并同意<a href="javascript:">《相关条款》</a>
+            </span>
+                </label>
+            </div>
+            <div class="weui-form__opr-area">
+                <a class="weui-btn weui-btn_primary weui-btn_disabled" href="javascript:" id="showTooltips">确定</a>
+            </div>
+        </div>
+        <div id="js_toast" style="display: none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+                <p class="weui-toast__content">已完成</p>
+            </div>
+        </div>
+        <div id="dialogs">
+            <!--BEGIN dialog1-->
+            <div class="js_dialog" id="iosDialog1" style="display: none;">
+                <div class="weui-mask"></div>
+                <div id="js_half_screen_dialog" class="weui-half-screen-dialog">
+                    <div class="weui-half-screen-dialog__hd">
+                        <div class="weui-half-screen-dialog__hd__side">
+                            <button id="dialogClose" class="weui-icon-btn">关闭<i class="weui-icon-close-thin"></i></button>
+                        </div>
+                        <div class="weui-half-screen-dialog__hd__main">
+                            <strong class="weui-half-screen-dialog__title">标题</strong>
+                        </div>
+                    </div>
+                    <div class="weui-half-screen-dialog__bd">
+                        <br>
+                        <br>
+                        可放自定义内容
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <!--END dialog1-->
+    </div>
+</body>
+<script src="./example/zepto.min.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var $tooltips = $('.js_tooltips');
+        var $toast = $('#js_toast');
+        var $input = $('.js_input');
+        var $agree= $('#weuiAgree');
+        var $agreeCheckbox = $('#weuiAgreeCheckbox');
+        var $halfScreenDialog = $('#js_half_screen_dialog');
+        var $inputClear = $('.js_input_clear');
+        var $checkPicture = $('.check-picture');
+        var $uploadPic = $('.upload-pic');
+
+        $input.on('input', function(){
+            let submit = true;
+            $input.map(function(i,e){
+                if(!e.value) {
+                    submit = false;
+                }
+            });
+
+            if (submit){
+                $('#showTooltips').removeClass('weui-btn_disabled');
+            }else{
+                $('#showTooltips').addClass('weui-btn_disabled');
+            }
+        });
+
+        //$agreeCheckbox.on('change', function(){
+        //});
+
+        $('#showTooltips').on('click', function(){
+            let submit = true;
+            if ($(this).hasClass('weui-btn_disabled')) return;
+            if ($tooltips.css('display') != 'none') return;
+            // toptips的fixed, 如果有`animation`, `position: fixed`不生效
+            $('.page.cell').removeClass('slideIn');
+
+            $input.each((i,e) => {
+                let pattern = e.getAttribute('pattern');
+
+                if(pattern) {
+                    let patt = new RegExp(pattern);
+                    if(!patt.test(e.value)) {
+                        let label = e.parentElement.previousElementSibling.firstChild.innerText;
+
+                        errorTips(label+'：格式有误');
+                        submit = false;
+                    }
+
+                }
+            });
+
+            if(!submit) { return; }
+
+            if($agreeCheckbox.prop("checked")){
+                $toast.fadeIn(100);
+                setTimeout(function () {
+                    $toast.fadeOut(100);
+                }, 2000);
+            }else{
+                $agree.addClass('weui-agree_animate');
+                setTimeout(function () {
+                    $agree.removeClass('weui-agree_animate');
+                }, 1000);
+            }
+        });
+
+        $inputClear.on('click',function() {
+            console.log($(this));
+            $(this).prev('.weui-input').val('');
+        });
+
+        /**
+         * 上传照片检验
+         */
+        $checkPicture.on('focus',function() {
+            let e = $(this);
+            if(!$('#'+e.attr('pic-id')).next('input').val()) {
+                errorTips(`请先上传【${e.parent('.weui-cell__bd').prev('.weui-cell__hd').children('.weui-label').text()}照片】`);
+            }
+        });
+
+        /**
+         * 点击图片上传
+         */
+        $uploadPic.on('click',function() {
+            let e = $(this);
+            let input = e.next('input');
+            if(input.length != 0) {
+                // 删除旧样式
+                e.removeClass('weui-btn_default');
+                // 成功样式
+                e.addClass('weui-btn_primary');
+                // 记录图片地址
+                input.val('/lidaye.jpg');
+            }
+        });
+
+        /**
+         * 发送验证码
+         */
+        $('#send-vcode').on('click',function() {
+            let e = $(this);
+            let status = e.attr('status');
+            // 发送验证码
+            if(status == 0) {
+                let second = 60;
+                e.attr('status',1).css({
+                    color: '#bbb'
+                }).text(`重新获取(${second})`);
+                setInterval(()=>{
+                    if(second > 0) {
+                        e.text(`重新获取(${second})`);
+                        --second;
+                    }
+                    else {
+                        e.removeAttr('style').text('获取验证码').attr('status',0);
+                    }
+                },1000)
+            }
+        });
+
+        var $iosDialog1 = $('#iosDialog1');
+
+        $('#dialogs').on('click', '.weui-mask', function(){
+            $halfScreenDialog.removeClass('weui-half-screen-dialog_show');
+            $(this).parents('.js_dialog').fadeOut(200);
+        });
+        $('#dialogClose').on('click', function(){
+            $halfScreenDialog.removeClass('weui-half-screen-dialog_show');
+            $(this).parents('.js_dialog').fadeOut(200);
+        });
+
+        $('#showIOSDialog1').on('click', function(){
+            $iosDialog1.fadeIn(200);
+            $halfScreenDialog.addClass('weui-half-screen-dialog_show');
+        });
+
+        let errorTips = (text) => {
+            $tooltips.text(text).fadeIn(100);
+            setTimeout(function () {
+                $tooltips.fadeOut(100);
+            }, 2000);
+        }
+    });
+</script>
+</html>
